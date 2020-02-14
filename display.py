@@ -99,9 +99,6 @@ for channel in channels:
 
 fig, ax = plt.subplots()
 
-print((index_to_freq))
-print((list(range(len(index_to_freq)))))
-
 # bars = ax.bar(index_to_freq, list(range(len(index_to_freq))))
 
 def init():
@@ -121,9 +118,8 @@ def update(frame):
 
 ani = animation.FuncAnimation(fig, update, init_func=None, blit=True, interval=100)
 
-print('test1')
+plt.tight_layout()
 plt.show()
-print('test2')
 
 for proc in procs:
     proc.terminate()

@@ -7,11 +7,15 @@ import zmq
 import sys
 import re
 import numpy as np
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 from multiprocessing import Process, Value, Array
 from pprint import pprint
 
+
+# import matplotlib as mpl
+# mpl.rcParams['toolbar'] = 'None'
 
 index_to_freq: List[str] = ["0.8Hz", "1Hz", "1.25Hz", "1.6Hz", "2Hz", "2.5Hz", "3.15Hz", "4Hz", "5Hz", "6.3Hz", "8Hz", "10Hz", "12.5Hz", "16Hz", "20Hz", "25Hz", "31.5Hz", "40Hz", "50Hz", "63Hz", "80Hz", "100Hz", "125Hz", "160Hz", "200Hz", "250Hz", "315Hz", "400Hz", "500Hz", "630Hz", "800Hz", "1kHz", "1.25kHz", "1.6kHz", "2kHz", "2.5kHz", "3.15kHz", "4kHz", "5kHz", "6.3kHz", "8kHz", "10Hz", "12.5kHz", "16kHz", "20kHz"]
 
@@ -116,9 +120,21 @@ def update(frame):
         ax.set_ylim(0, 100)
     return bar
 
-ani = animation.FuncAnimation(fig, update, init_func=None, blit=True, interval=100)
+ani = animation.FuncAnimation(fig, update, init_func=None, blit=True, interval=999)
 
-plt.tight_layout()
+plt.rcParams['toolbar'] = 'None' # Remove tool bar (upper bar)
+fig.canvas.window().statusBar().setVisible(False) # Remove status bar (bottom bar)
+plt.tight_layout(pad=0)
+plt.subplots_adjust(bottom=0.1)
+mng = plt.get_current_fig_manager()
+try:
+    mng.frame.Maximize(True)
+except:
+    pass
+try:
+    mng.window.showMaximized()
+except:
+    pass
 plt.show()
 
 for proc in procs:
